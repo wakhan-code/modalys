@@ -6,24 +6,127 @@
   endif
 %}
 
+
+  <style>
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 15px 0;
+    }
+
+    .container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .main-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu-item {
+      display: inline-block;
+      position: relative;
+    }
+
+    .menu-item a {
+      display: block;
+      padding: 10px 15px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .has-dropdown .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #444;
+    }
+
+    .has-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu li {
+      display: block;
+    }
+
+    .search-form {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .search-input {
+      padding: 8px;
+      border: 1px solid #fff;
+      background-color: transparent;
+      color: #fff;
+    }
+
+    .search-button {
+      padding: 8px 15px;
+      background-color: #555;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .main-menu {
+        display: none;
+      }
+      .search-form {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
 <header id="header" class="header">
-  <nav role="navigation">
-    {% for link in main_menu_linklist %}
-      {% if link.links != blank %}
-        {% assign link_handle = link.handle | replace: '-', '_' %}
-        {% for childlink in link.links %}
-          <a href="{{ childlink.url }}">{{ childlink.title }}</a>
-        {% endfor %}     
-      {% else %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {% endif %}
-    {% endfor %}
-    <form action="{{ routes.search_url }}" method="get">
-      <input type="search" name="q" placeholder="Search">
-      <button type="submit">Search</button>
-    </form>
-  </nav>     
+  <div class="container">
+    <nav role="navigation">
+      <ul class="main-menu">
+        {% for link in main_menu_linklist %}
+          <li class="menu-item {% if link.links != blank %}has-dropdown{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% if link.links != blank %}
+              <ul class="dropdown-menu">
+                {% for childlink in link.links %}
+                  <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <form action="{{ routes.search_url }}" method="get" class="search-form">
+        <input type="search" name="q" placeholder="Search" class="search-input" id="search-input">
+        <button type="submit" class="search-button">Search</button>
+      </form>
+    </nav>
+  </div>
 </header>
+
+<!-- jQuery (optional, only if you need autocomplete functionality) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery UI Autocomplete (optional, only if you need autocomplete functionality) -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+  $(function() {
+    // JavaScript code for search autocomplete (replace 'availableTags' with your array of search suggestions)
+    $("#search-input").autocomplete({
+      source: availableTags // Array containing search suggestions
+    });
+  });
+</script>
+
+
         
 
 {% schema %}
