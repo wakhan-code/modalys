@@ -7,89 +7,96 @@
 %}
 
 
-  <style>
-    /* Header styles */
-    .header {
-      background-color: #333;
-      color: #fff;
-      padding: 15px 0;
-    }
+<style>
+  /* Header styles */
+  .header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .container {
-      width: 90%;
-      margin: 0 auto;
-    }
+  .container {
+    width: 90%;
+    margin: 0 auto;
+  }
 
+  .main-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-item {
+    display: inline-block;
+    position: relative;
+  }
+
+  .menu-item a {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .has-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+  }
+
+  .has-dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu li {
+    display: block;
+  }
+
+  .search-form {
+    margin-right: auto; /* Push search form to the left */
+  }
+
+  .search-input {
+    padding: 8px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+  }
+
+  .search-button {
+    padding: 8px 15px;
+    background-color: #555;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
     .main-menu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .menu-item {
-      display: inline-block;
-      position: relative;
-    }
-
-    .menu-item a {
-      display: block;
-      padding: 10px 15px;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .has-dropdown .dropdown-menu {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #444;
     }
-
-    .has-dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu li {
-      display: block;
-    }
-
     .search-form {
-      display: inline-block;
-      margin-left: 20px;
+      margin-left: 0;
+      margin-top: 10px;
     }
-
-    .search-input {
-      padding: 8px;
-      border: 1px solid #fff;
-      background-color: transparent;
-      color: #fff;
-    }
-
-    .search-button {
-      padding: 8px 15px;
-      background-color: #555;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    /* Responsive styles */
-    @media screen and (max-width: 768px) {
-      .main-menu {
-        display: none;
-      }
-      .search-form {
-        margin-left: 0;
-        margin-top: 10px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
 <header id="header" class="header">
   <div class="container">
+    <!-- Search Form -->
+    <form action="{{ routes.search_url }}" method="get" class="search-form">
+      <input type="search" name="q" placeholder="Search" class="search-input" id="search-input">
+      <button type="submit" class="search-button">Search</button>
+    </form>
     <nav role="navigation">
       <ul class="main-menu">
         {% for link in main_menu_linklist %}
@@ -105,10 +112,6 @@
           </li>
         {% endfor %}
       </ul>
-      <form action="{{ routes.search_url }}" method="get" class="search-form">
-        <input type="search" name="q" placeholder="Search" class="search-input" id="search-input">
-        <button type="submit" class="search-button">Search</button>
-      </form>
     </nav>
   </div>
 </header>
@@ -125,9 +128,6 @@
     });
   });
 </script>
-
-
-        
 
 {% schema %}
 {
