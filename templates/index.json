@@ -1,14 +1,13 @@
 {
   "sections": {
-    "store-name": {
-      "type": "store-name"
-    },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "featured-collection": "all"
+      "banner":{
+          "type": "banner",
+          "settings": {
+
+          }
       }
-    }
   },
-  "order": ["store-name", "featured-collection"]
+  "order": [
+      "banner"
+  ]
 }
