@@ -1,0 +1,25 @@
+{% if section.settings.['show-announcement'] %}
+<section>
+    <h1>anouncement bar</h1>
+</section>
+{% endif %}
+
+{%  schema  %} 
+    {
+        "name": "announcement-bar",
+        "settings": [
+         {
+            "type": "checkbox",
+            "id": "show-announcement",
+            "label": "show anouncement",
+            "default": true
+         }
+
+    
+        ],
+        "presets": [
+          
+        ]
+    }
+    
+     {% endschema %} 

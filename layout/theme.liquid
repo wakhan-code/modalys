@@ -4,6 +4,10 @@
     {{ content_for_header }}
 </head>
 <body>
-    {{ content_for_layout }}
+    {%  section 'announcement-bar' %} 
+    <main id="main" role="main">
+        {{ content_for_layout }}
+    </main>
+   
 </body>
 </html>
